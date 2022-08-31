@@ -13,5 +13,5 @@
 
 </script>
 <div class="bg-slate-200">
-<slot></slot>
+    <slot></slot>
 </div>

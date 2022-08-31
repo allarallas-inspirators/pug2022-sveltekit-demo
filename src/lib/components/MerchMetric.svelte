@@ -1,6 +1,7 @@
 <script>
 
-    export let allTransactions = [];
+    export let allOrders = [];
+    export let fieldName = 'Carrier';
     let stats = [];
 
     let groupBy = function(xs, key) {
@@ -13,12 +14,12 @@
         }, new Map());
     };
 
-    $: if(allTransactions) {
-        let map = groupBy(allTransactions, 'merch');
+    $: if(allOrders) {
+        let map = groupBy(allOrders, fieldName);
         stats =  [];
         map.forEach((value, key) => {
             stats.push( {
-                merch: key,
+                label: key,
                 count: value.length
             })
         });
@@ -28,9 +29,10 @@
 
 <div class="card flex flex-col shadow-xl m-2 h-max bg-white min-h-96">
     <div class="card-body">
+        <div class="card-title">{fieldName}</div>
     {#each stats as stat,i}
         <div class="flex">
-            <div class="w-44">{stat.merch}: {i}</div> <progress class="progress w-32 progress-primary" value="{stat.count/allTransactions.length*stats.length*50}" max="100"></progress>
+            <div class="w-44">{stat.label}</div> <progress class="progress w-32 progress-primary" value="{stat.count/allOrders.length*stats.length*50}" max="100"></progress>
         </div>
     {/each}
     </div>
